@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Safe Place</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div id="rain" class="rain"></div>
+  <div class="stars" id="stars"></div>
+  <div class="moon"></div>
+
+  <!-- Headphones Welcome -->
+  <div id="headphoneOverlay" class="headphone-overlay" style="display:none;">
+    <div class="headphone-card">
+      <div class="headphone-icon-wrap">
+        <div class="headphone-ring ring1"></div>
+        <div class="headphone-ring ring2"></div>
+        <div class="headphone-icon">🎧</div>
+      </div>
+      <h2>Use Headphones</h2>
+      <p>For the softest and safest experience 💛</p>
+      <button onclick="closeHeadphoneOverlay()">Enter Slowly</button>
+    </div>
+  </div>
+
+  <!-- Hug Overlay -->
+  <div id="hugOverlay" class="hug-overlay" style="display:none;">
+    <div class="hug-card">
+      <button class="hug-close" onclick="closeHugOverlay()">×</button>
+      <div class="hug-scene">
+        <div class="hug-arm left-arm"></div>
+        <div class="hug-core"></div>
+        <div class="hug-arm right-arm"></div>
+      </div>
+      <h2>💛 Stay here for a moment</h2>
+      <p id="hugLine">I’m holding on gently. Breathe with me.</p>
+      <div class="hug-breath-line"></div>
+      <p id="hugCountText" class="small-text">8 seconds of quiet warmth</p>
+    </div>
+  </div>
+
+  <!-- Mood Comfort Overlay -->
+  <div id="moodOverlay" class="mood-overlay" style="display:none;">
+    <div class="mood-comfort-card">
+      <button class="mood-close" onclick="stopMoodComfort()">×</button>
+
+      <div id="moodSceneStage" class="mood-scene-stage mood-scene-neutral">
+
+        <div class="scene-sad-layer">
+          <div class="sad-sky-glow"></div>
+          <div class="sad-ground"></div>
+          <div class="sad-person"></div>
+          <div class="sad-light-path"></div>
+          <div class="sad-fireflies">
+            <span></span><span></span><span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+
+        <div class="scene-lonely-layer">
+          <div class="lonely-moon"></div>
+          <div class="lonely-hill"></div>
+          <div class="lonely-orb lonely-orb-left"></div>
+          <div class="lonely-orb lonely-orb-right"></div>
+          <div class="lonely-stars">
+            <span></span><span></span><span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+
+        <div class="scene-proud-layer">
+          <div class="proud-core"></div>
+          <div class="proud-ring ring-a"></div>
+          <div class="proud-ring ring-b"></div>
+          <div class="proud-ring ring-c"></div>
+          <div class="proud-petals">
+            <span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+
+        <div class="scene-stressed-layer">
+          <div class="stress-center"></div>
+          <div class="stress-dome dome-a"></div>
+          <div class="stress-dome dome-b"></div>
+          <div class="stress-dome dome-c"></div>
+          <div class="stress-mist">
+            <span></span><span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+
+      </div>
+
+      <h2 id="moodSceneTitle">Take a soft pause</h2>
+      <p id="moodSceneLine">No need to read too much. Just stay here.</p>
+
+      <div class="scene-progress-wrap">
+        <div id="sceneProgressBar" class="scene-progress-bar"></div>
+      </div>
+
+      <p id="moodSceneTimer" class="small-text">30 seconds of softness</p>
+
+      <div class="scene-bottom-buttons">
+        <button onclick="replayMoodComfort()">Replay</button>
+        <button onclick="stopMoodComfort()">Back</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lock Screen -->
+  <div id="lockscreen">
+    <div class="card lock-card">
+      <h1>💛 Private Safe Place</h1>
+      <p>Only for peaceful moments</p>
+      <input type="password" id="pass" placeholder="Enter Password" />
+      <button onclick="unlock()">Open</button>
+      <p class="small-text">This space was made with care.</p>
+    </div>
+  </div>
+
+  <!-- Main App -->
+  <div id="main" style="display:none;">
+
+    <section class="hero">
+      <h1>You Are Safe Here 💛</h1>
+      <p>Bas thoda rest kar. Sab theek ho jayega.</p>
+      <button onclick="openHugOverlay()">Need a Hug?</button>
+    </section>
+
+    <section>
+      <h2>🌬️ Breathe With Me</h2>
+      <div class="breath-wrap">
+        <div class="breath-circle"></div>
+      </div>
+      <p id="breathText">Inhale... Hold... Exhale...</p>
+    </section>
+
+    <section>
+      <h2>💛 Mood Comfort Space</h2>
+      <p>Choose how you feel. A soft visual comfort moment will start for you.</p>
+
+      <div class="comfort-grid">
+        <button class="comfort-btn" onclick="startMoodComfort('sad')">😔 Sad</button>
+        <button class="comfort-btn" onclick="startMoodComfort('lonely')">🌙 Lonely</button>
+        <button class="comfort-btn" onclick="startMoodComfort('proud')">✨ Proud</button>
+        <button class="comfort-btn" onclick="startMoodComfort('stressed')">🌧️ Stressed</button>
+      </div>
+
+      <p class="small-text">No long reading. Just tap and let the moment hold you.</p>
+    </section>
+
+    <!-- Quiet Stranger -->
+    <section>
+      <div class="listener-header">
+        <div class="listener-avatar">◐</div>
+        <div>
+          <h2>🌙 A Quiet Stranger</h2>
+          <p class="small-text">A quiet, anonymous, non-judgmental space. You can speak imperfectly here.</p>
+        </div>
+      </div>
+
+      <div class="listener-modes">
+        <button class="mode-btn active-mode" onclick="setMode('listen', this)">Just listen</button>
+        <button class="mode-btn" onclick="setMode('comfort', this)">Comfort me</button>
+        <button class="mode-btn" onclick="setMode('calm', this)">Calm my thoughts</button>
+        <button class="mode-btn" onclick="setMode('advice', this)">Gentle advice</button>
+        <button class="mode-btn" onclick="setMode('name', this)">Help me name this</button>
+      </div>
+
+      <p class="small-text explain-text">
+        Upper buttons choose how the stranger will respond to you.
+      </p>
+
+      <!-- Hidden Stranger Logic: JS ke liye hai, user ko visible nahi hoga -->
+      <div id="strangerLogicPanel" class="stranger-logic-hidden" aria-hidden="true">
+        <div id="chatContextHint">Stranger is softly following your current feeling and recent messages.</div>
+
+        <div class="chat-signal-row">
+          <div class="chat-signal-pill">
+            <span class="signal-label">Mode</span>
+            <span id="activeModeLabel" class="signal-value">Just listen</span>
+          </div>
+
+          <div class="chat-signal-pill">
+            <span class="signal-label">Topic</span>
+            <span id="activeTopicLabel" class="signal-value">general</span>
+          </div>
+
+          <div class="chat-signal-pill">
+            <span class="signal-label">Feeling</span>
+            <span id="activeFeelingLabel" class="signal-value">neutral</span>
+          </div>
+        </div>
+
+        <div id="chatMemoryStrip" class="chat-memory-strip">
+          <span class="memory-title">Conversation memory</span>
+          <span id="chatMemoryText">The stranger will remember the recent thread softly.</span>
+        </div>
+      </div>
+
+      <div class="quick-chips">
+        <button class="chip-btn" onclick="quickSend('happy')">happy</button>
+        <button class="chip-btn" onclick="quickSend('proud')">proud</button>
+        <button class="chip-btn" onclick="quickSend('heavy')">heavy</button>
+        <button class="chip-btn" onclick="quickSend('blank')">blank</button>
+        <button class="chip-btn" onclick="quickSend('lonely')">lonely</button>
+        <button class="chip-btn" onclick="quickSend('scared')">scared</button>
+        <button class="chip-btn" onclick="quickSend('crying')">crying</button>
+        <button class="chip-btn" onclick="quickSend('too much')">too much</button>
+      </div>
+
+      <p class="small-text explain-text">
+        These keywords can help you choose or describe your current mood quickly.
+      </p>
+
+      <div class="chat-controls">
+        <button class="chat-control-btn" onclick="startNewConversation()">New Conversation</button>
+        <button class="chat-control-btn" onclick="saveCurrentChatAs()">Save Chat</button>
+        <button class="chat-control-btn danger-btn" onclick="deleteCurrentChatOnly()">Clear Current Chat</button>
+      </div>
+
+      <div class="saved-chats-wrap">
+        <h3>Saved Chats</h3>
+        <div id="savedChatsList" class="saved-chats-list"></div>
+      </div>
+
+      <div id="chatBox" class="chat-box">
+        <div class="bot-message">
+          <div class="msg-text">Hi. I’m here. You can start anywhere, even with one word.</div>
+          <div class="msg-time">now</div>
+        </div>
+      </div>
+
+      <!-- Typing indicator: JS + CSS se visible hoga -->
+      <div id="typingIndicator" class="typing-indicator" style="display:none;">
+        <div class="typing-bubble">
+          <span class="typing-name">Stranger is typing</span>
+          <div class="typing-dots">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="chat-input-wrap">
+        <textarea id="chatInput" class="chat-input" placeholder="Type what you feel..."></textarea>
+        <button onclick="sendMessage()">Send</button>
+      </div>
+
+      <div class="stay-wrap">
+        <button class="stay-btn" onclick="stayWithMe()">Just stay with me</button>
+      </div>
+    </section>
+
+    <!-- Video Section -->
+    <section>
+      <h2>🎥 Safe Video Space</h2>
+      <p>A soft video can play here quietly for you.</p>
+
+      <div class="video-card">
+        <video
+          id="memoryVideo"
+          class="memory-video"
+          controls
+          playsinline
+          preload="metadata"
+          poster="images/video-poster.jpg"
+        >
+          <source src="videos/soft-memory.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </div>
+
+      <p class="small-text">
+        Video tabhi chalegi jab user play pe tap karega. Apni video file ko
+        <strong>videos/soft-memory.mp4</strong> naam se save kar dena.
+      </p>
+    </section>
+
+    <!-- Notes -->
+    <section>
+      <h2>📝 Notes</h2>
+      <p>No judgment. Just let it out.</p>
+
+      <div class="diary-create">
+        <input type="text" id="newNotesFolderName" placeholder="New notes folder name..." />
+        <button onclick="createNotesFolder()">Create Folder</button>
+      </div>
+
+      <div id="notesFolderList" class="folder-list"></div>
+
+      <h3 id="currentNotesFolderTitle">No notes folder selected</h3>
+
+      <div class="btn-group">
+        <button onclick="saveCurrentNoteFolder()">Save Note</button>
+        <button onclick="renameCurrentNotesFolder()">Rename Folder</button>
+        <button onclick="deleteCurrentNotesFolder()">Delete Folder</button>
+      </div>
+
+      <textarea id="notes" placeholder="Write anything here..."></textarea>
+      <p class="small-text">Notes auto-save too, but you can also save manually.</p>
+    </section>
+
+    <!-- Mood Tracker -->
+    <section>
+      <h2>📅 Mood Tracker</h2>
+      <p>How do you feel today?</p>
+
+      <div class="mood-emoji-wrap">
+        <div id="moodBuddy" class="mood-buddy">🌈</div>
+        <p id="moodBuddyLine" class="small-text">Your mood matters here.</p>
+      </div>
+
+      <div class="btn-group">
+        <button onclick="saveMood('😊 Good')">😊 Good</button>
+        <button onclick="saveMood('😐 Okay')">😐 Okay</button>
+        <button onclick="saveMood('😔 Low')">😔 Low</button>
+        <button onclick="saveMood('😣 Stressed')">😣 Stressed</button>
+      </div>
+
+      <div class="mood-stats">
+        <div class="mood-stat-card">
+          <div class="mood-stat-label">Today</div>
+          <div id="todayMood" class="mood-stat-value">No mood yet</div>
+        </div>
+
+        <div class="mood-stat-card">
+          <div class="mood-stat-label">Streak</div>
+          <div id="moodStreak" class="mood-stat-value">0 days</div>
+        </div>
+
+        <div class="mood-stat-card">
+          <div class="mood-stat-label">Last 7 Days</div>
+          <div id="last7MoodMini" class="mood-stat-value">—</div>
+        </div>
+      </div>
+
+      <div id="moodAdviceBox" class="mood-advice-box"></div>
+      <div id="moodActionBox" class="mood-action-box"></div>
+
+      <div class="mood-tools">
+        <button onclick="doMoodAction('breathe')">🌬️ 1 Min Reset</button>
+        <button onclick="doMoodAction('water')">💧 Water Check</button>
+        <button onclick="doMoodAction('stretch')">🫶 Shoulder Relax</button>
+        <button onclick="doMoodAction('music')">🎵 Calm Reminder</button>
+        <button onclick="doMoodAction('kind')">💛 Kind Words</button>
+      </div>
+
+      <div id="moodToolOutput" class="mood-tool-output"></div>
+
+      <div class="tiny-win-box">
+        <h3>✨ Tiny Win</h3>
+        <p class="small-text">Write one small good thing from today.</p>
+        <input type="text" id="tinyWinInput" placeholder="Example: Aaj maine thoda rest liya." />
+        <button onclick="saveTinyWin()">Save Tiny Win</button>
+        <div id="tinyWinDisplay"></div>
+      </div>
+
+      <div class="history-box">
+        <h3>Recent Mood History</h3>
+        <div id="moodHistory"></div>
+      </div>
+    </section>
+
+    <!-- Secret Diary -->
+    <section>
+      <h2>🔒 Secret Diary</h2>
+      <p>Only your private hidden space.</p>
+      <input type="password" id="diaryPass" placeholder="Secret Diary Password" />
+      <button onclick="openDiary()">Open Diary</button>
+
+      <div id="diaryBox" style="display:none; margin-top:14px;">
+        <div class="diary-create">
+          <input type="text" id="newFolderName" placeholder="New diary folder name..." />
+          <button onclick="createDiaryFolder()">Create Folder</button>
+        </div>
+
+        <div id="folderList" class="folder-list"></div>
+
+        <h3 id="currentFolderTitle">No folder selected</h3>
+
+        <div class="btn-group">
+          <button onclick="saveDiary()">Save Diary</button>
+          <button onclick="renameCurrentDiaryFolder()">Rename Folder</button>
+          <button onclick="deleteCurrentDiaryFolder()">Delete Folder</button>
+        </div>
+
+        <textarea id="diaryText" placeholder="Write your hidden thoughts here..."></textarea>
+
+        <div class="diary-photo-card">
+          <h3>📸 Photo Memories In This Folder</h3>
+          <p class="small-text">Photo select karo, description likho, aur current diary folder me save kar do.</p>
+
+          <input type="file" id="diaryPhotoInput" accept="image/*" />
+          <textarea id="diaryPhotoDesc" placeholder="Write a small description for this photo..."></textarea>
+          <button onclick="saveDiaryPhoto()">Save Photo In This Folder</button>
+
+          <div id="diaryPhotoGallery"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Music -->
+    <section>
+      <h2>🎵 Soft Music</h2>
+      <p>You can listen gently here.</p>
+
+      <select id="songSelect" class="song-select" onchange="changeSong()">
+        <option value="music1.mp3">Soft Song 1</option>
+        <option value="music2.mp3">Soft Song 2</option>
+        <option value="music3.mp3">Soft Song 3</option>
+      </select>
+
+      <audio id="musicPlayer" controls preload="metadata">
+        <source src="music1.mp3" type="audio/mpeg" />
+      </audio>
+
+      <p class="small-text">Choose what feels right 💛</p>
+    </section>
+
+    <section>
+      <p>Made with care 💛</p>
+    </section>
+
+  </div>
+
+  <!-- Background / scene audio -->
+  <audio id="bgmusic" loop preload="metadata">
+    <source src="ambient.mp3" type="audio/mpeg" />
+  </audio>
+
+  <audio id="scenePlayer" preload="metadata">
+    <source src="" type="audio/mpeg" />
+  </audio>
+
+  <script src="script.js"></script>
+</body>
+</html>
