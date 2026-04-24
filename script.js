@@ -1,6 +1,5 @@
 const AI_BACKEND_URL = "https://quiet-stranger-backend.vercel.app/api/stranger";
 const USE_REAL_AI_STRANGER = true;
-
 /* =========================================================
    FULL FINAL UPDATED SCRIPT.JS — PART 1/4
    Core setup + lock + overlays + audio/video + notes start
