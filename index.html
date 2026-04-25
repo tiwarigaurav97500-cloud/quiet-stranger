@@ -172,7 +172,6 @@
         Upper buttons choose how the stranger will respond to you.
       </p>
 
-      <!-- Hidden Stranger Logic: JS ke liye hai, user ko visible nahi hoga -->
       <div id="strangerLogicPanel" class="stranger-logic-hidden" aria-hidden="true">
         <div id="chatContextHint">Stranger is softly following your current feeling and recent messages.</div>
 
@@ -242,7 +241,6 @@
         </div>
       </div>
 
-      <!-- Typing indicator -->
       <div id="typingIndicator" class="typing-indicator" style="display:none;">
         <div class="typing-bubble">
           <span class="typing-name">Stranger is typing</span>
@@ -262,7 +260,7 @@
       </div>
     </section>
 
-    <!-- Video Section -->
+    <!-- Video Section FIXED -->
     <section>
       <h2>🎥 Safe Video Space</h2>
       <p>A soft video can play here quietly for you.</p>
@@ -272,18 +270,21 @@
           id="memoryVideo"
           class="memory-video"
           controls
+          autoplay
+          muted
+          loop
           playsinline
           webkit-playsinline
-          preload="metadata"
+          preload="auto"
+          style="width:100%; max-width:700px; border-radius:12px;"
         >
-          <source src="./videos/soft-memory.mp4" type="video/mp4" />
+          <source src="videos/soft-memory.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
       </div>
 
       <p class="small-text">
-        Video file GitHub me exactly yahan honi chahiye:
-        <strong>videos/soft-memory.mp4</strong>
+        Video file path: <strong>videos/soft-memory.mp4</strong>
       </p>
     </section>
 
