@@ -38,7 +38,7 @@ function runAsync(task) {
 function unlock(){
   const p = document.getElementById("pass")?.value || "";
 
-  if(p === "1234"){
+  if(p === "0926"){
     const lockscreen = document.getElementById("lockscreen");
     const main = document.getElementById("main");
 
@@ -909,7 +909,7 @@ let currentDiaryFolder = null;
 function openDiary(){
   const p = document.getElementById("diaryPass")?.value || "";
 
-  if(p === "2222"){
+  if(p === "2326"){
     const box = document.getElementById("diaryBox");
     if(box) box.style.display = "block";
     loadDiaryFolders();
