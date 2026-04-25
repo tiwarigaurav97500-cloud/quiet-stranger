@@ -1688,9 +1688,7 @@ function buildAIContextForStranger(){
 async function getRealAIReply(text, detectedStyle){
   const response = await fetch("https://quiet-stranger-backend.vercel.app/api/stranger", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
+   
     body: JSON.stringify({
       message: text,
       mode: currentMode || "listen",
