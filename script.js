@@ -1144,7 +1144,7 @@ function saveDiaryPhoto(){
 
   const file = fileInput.files[0];
 
-  const maxSizeMB = 5;
+  const maxSizeMB = 50;
   if(file.size > maxSizeMB * 1024 * 1024){
     alert(`File is too large. Please choose a file under ${maxSizeMB}MB for browser storage.`);
     return;
